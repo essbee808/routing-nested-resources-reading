@@ -1,7 +1,15 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = Post.all
+    #add conditional to account for whether user is trying to access all posts
+    #or just the index of posts by a certain author
+
+    #params[:author_id] came from nested route
+    if params[:author_id]
+      @posts = Author.find(params[:author_id]).posts
+    else 
+      @posts = Post.all
+    end
   end
 
   def show
